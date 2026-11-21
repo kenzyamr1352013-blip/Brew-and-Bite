@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Brew & Bite - Menu</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #fff8f8; font-family: 'Poppins', sans-serif; color: #333; overflow-x: hidden; }
+
+    /* --- MODERN NAVBAR --- */
+    .navbar {
+      background: #ec6aab;
+      padding: 10px 40px;
+      position: fixed;
+      top: 0; width: 100%; z-index: 1000;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar-brand { 
+      color: #fff !important; font-weight: 700; font-size: 1.6rem; 
+      text-decoration: none; display: flex; align-items: center; gap: 12px;
+    }
+    .navbar-brand img { 
+      height: 50px; width: 50px; border-radius: 50%; border: 2px solid white; object-fit: cover;
+    }
+    
+    .nav-links { display: flex; list-style: none; margin: 0; gap: 2rem; align-items: center; }
+    .nav-links a { 
+      color: #fff !important; font-weight: 500; text-decoration: none; 
+      transition: 0.3s; opacity: 0.9; font-size: 1.1rem;
+    }
+    .nav-links a:hover { opacity: 1; transform: translateY(-2px); }
+    
+    .cart-link { position: relative; }
+    #cart-count {
+      position: absolute; top: -10px; right: -15px;
+      background: white; color: #ec6aab; font-size: 0.7rem;
+      padding: 2px 6px; border-radius: 50%; font-weight: 700;
+    }
+
+    /* --- ENHANCED UPPER PART (HERO) --- */
+    .menu-header {
+      background: #ec6aab;
+      padding: 140px 20px 120px;
+      text-align: center;
+      color: white;
+      border-radius: 0 0 50% 50% / 0 0 10% 10%;
+      box-shadow: 0 10px 30px rgba(236, 106, 171, 0.2);
+      position: relative;
+    }
+    .header-logo {
+        width: 120px; height: 120px; border-radius: 50%; border: 4px solid white;
+        margin-bottom: 20px; background: white; box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .menu-header h1 { font-size: 3.5rem; font-weight: 800; margin-bottom: 5px; }
+
+    /* --- FILTER BUTTONS --- */
+    .filter-section { margin-top: -60px; padding: 0 20px; position: relative; z-index: 10; }
+    .filter-container {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+      max-width: 900px; margin: 0 auto; padding: 25px;
+      background: white; border-radius: 50px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    }
+    .filter-btn-super {
+      padding: 12px 28px; background: #ff66b2; border: 3px solid transparent;
+      border-radius: 30px; color: white; font-weight: 700; cursor: pointer; transition: 0.3s;
+    }
+    .filter-btn-super.active {
+      background: #ec6aab; border-color: #ffffff; 
+      box-shadow: 0 8px 20px rgba(236, 106, 171, 0.3);
+      transform: scale(1.05);
+    }
+
+    /* --- MENU CONTENT --- */
+    .category-title { text-align: center; margin: 60px 0 30px; color: #7a3a4f; font-weight: 700; font-size: 2.2rem; }
+    .menu-section { display: none; padding: 0 20px 40px; }
+    .menu-section.active { display: block; }
+
+    .menu-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 35px; max-width: 1200px; margin: 0 auto;
+    }
+    
+    .menu-item {
+      background: white; border-radius: 30px; padding: 20px;
+      text-align: center; transition: 0.4s; box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    }
+    .menu-item:hover { transform: translateY(-12px); box-shadow: 0 20px 40px rgba(236, 106, 171, 0.15); }
+
+    .menu-item img { width: 100%; height: 280px; object-fit: cover; border-radius: 25px; margin-bottom: 20px; }
+    .drinks-section .menu-item img { height: 380px; }
+
+    .menu-title { font-weight: 700; color: #552a39; font-size: 1.4rem; }
+    .menu-price { color: #ec6aab; font-weight: 800; font-size: 1.5rem; margin-bottom: 20px; }
+    
+    .add-to-cart {
+      background: #ec6aab; color: white; border: none; width: 100%; 
+      padding: 15px; border-radius: 20px; font-weight: 700; cursor: pointer; transition: 0.3s;
+    }
+    .add-to-cart:hover { background: #d45a96; }
+
+    footer { background: #ec6aab; color: white; text-align: center; padding: 50px 20px; margin-top: 80px; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .menu-header h1 { font-size: 2.5rem; }
+    }
+        
+    /* Makes the background transparent so the word 'Cart' is shown */
+.nav-cart-btn {
+  background: transparent !important; 
+  color: white !important; 
+  border: 2px solid white; 
+  padding: 6px 15px !important;
+  border-radius: 50px;
+  font-weight: 700 !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.badge-pill-custom {
+  background: white; 
+  color: #ec6aab; 
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  margin-left: 8px;
+}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+        <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" alt="Logo">
+        Brew & Bite
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+        <a href="My Cart.html" class="nav-cart-btn">
+    Cart 🛒 <span class="badge-pill-custom" id="navBadge">0</span>
+  </a>
+</li>
+    </ul>
+  </nav>
+
+  <header class="menu-header">
+    <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" class="header-logo" alt="Brew & Bite Logo">
+    <h1 id="headerTitle">Our Menu</h1>
+    <p>Riyadh's coziest spot for premium coffee & bites</p>
+  </header>
+
+  <section class="filter-section">
+    <div class="filter-container">
+      <button class="filter-btn-super active" onclick="showMenu('doughnuts', '🍩 Doughnuts', this)">Doughnuts</button>
+      <button class="filter-btn-super" onclick="showMenu('cakepops', '🎂 Cake Pops', this)">Cake Pops</button>
+      <button class="filter-btn-super" onclick="showMenu('cinnamon', '🥮 Cinnamon Rolls', this)">Cinnamon Rolls</button>
+      <button class="filter-btn-super" onclick="showMenu('cupcakes', '🧁 Cupcakes', this)">Cupcakes</button>
+      <button class="filter-btn-super" onclick="showMenu('all', '✨ Full Menu', this)">All Items</button>
+    </div>
+  </section>
+
+  <main id="menu-content">
+    
+    <section class="menu-section active doughnuts">
+      <h2 class="category-title">Doughnuts</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="2f63a79cf2976c1d54593b4340783f9c.jpg">
+          <p class="menu-title">Chocolate Doughnuts</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Chocolate Doughnuts', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="257f579c76d693f1e8ebac303cfa67fe.jpg">
+          <p class="menu-title">Strawberry Doughnuts</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Strawberry Doughnuts', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="ddbd3006cebc24e7713700e28d683355.jpg">
+          <p class="menu-title">White Chocolate Doughnuts</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('White Chocolate Doughnuts', 5)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section cakepops">
+      <h2 class="category-title">Cake Pops</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="8ddec52eb2d4218871cebdf270ea2e51.jpg">
+          <p class="menu-title">Chocolate Cake Pops</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Chocolate Cake Pops', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="48414b922dcc80205f7e36e479e77e5e.jpg">
+          <p class="menu-title">Pink Cake Pops</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Pink Cake Pops', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="e680595f48ec76a7ce2ea27dce4b8aaf.jpg">
+          <p class="menu-title">White Cake Pops</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('White Cake Pops', 5)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section cinnamon">
+      <h2 class="category-title">Cinnamon Rolls</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="53f97be812da8db577ff2e73f1aa4827.jpg">
+          <p class="menu-title">Classic Cinnamon Rolls</p><div class="menu-price">7 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Cinnamon Rolls', 7)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="60ba2eccfe9bcb058d0af2eaddeb47be.jpg">
+          <p class="menu-title">Mini Cinnamon Rolls</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Mini Cinnamon Rolls', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="dd6eb2a80f7c6b871030c3eacb126918.jpg">
+          <p class="menu-title">Oreo Cinnamon Rolls</p><div class="menu-price">7 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Oreo Cinnamon Rolls', 7)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu-section cupcakes">
+      <h2 class="category-title">Cupcakes</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="4da3d98d4332cfbd564045f2d2733eee.jpg">
+          <p class="menu-title">Chocolate Cupcakes</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Chocolate Cupcakes', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="a79954a884dda23f91291ac0cfb18986.jpg">
+          <p class="menu-title">Vanilla Cupcakes</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Vanilla Cupcakes', 5)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="f02861b231bf9ccdb8e525046c0c0f23.jpg">
+          <p class="menu-title">Pink Cup Cakes</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Pink Cup Cakes', 5)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="drinks-section">
+      <h2 class="category-title" style="color:#ec6aab;">☕ Drinks</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img src="75c45e402c275d578b7ba7c3dd2dc283.jpg">
+          <p class="menu-title">Ice Coffee</p><div class="menu-price">7 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Ice Coffee', 7)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="924ddab4f7ad7192b593baab3603c1d5.jpg">
+          <p class="menu-title">Hot Chocolate</p><div class="menu-price">7 SR</div>
+          <button class="add-to-cart" onclick="addToCart('Hot Chocolate', 7)">Add to Cart</button>
+        </div>
+        <div class="menu-item">
+          <img src="84be3089a3dada088daa76eab5d01b98.jpg">
+          <p class="menu-title">English Tea</p><div class="menu-price">5 SR</div>
+          <button class="add-to-cart" onclick="addToCart('English Tea', 5)">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>© 2026 Brew & Bite - Riyadh, Saudi Arabia</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    window.onload = () => {
+        const cart = JSON.parse(localStorage.getItem('brewbite-cart')) || [];
+        document.getElementById('cart-count').innerText = cart.length;
+    };
+
+    function showMenu(category, title, btn) {
+      document.getElementById('headerTitle').textContent = title;
+      document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+      
+      if (category === 'all') {
+        document.querySelectorAll('.menu-section').forEach(s => s.classList.add('active'));
+      } else {
+        document.querySelector('.' + category).classList.add('active');
+      }
+
+      document.querySelectorAll('.filter-btn-super').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      gsap.fromTo('.active .menu-item', 
+        { y: 30, opacity: 0 }, 
+        { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, clearProps: "all" }
+      );
+    }
+
+    function addToCart(name, price) {
+      let cart = JSON.parse(localStorage.getItem('brewbite-cart')) || [];
+      cart.push({ name, price });
+      localStorage.setItem('brewbite-cart', JSON.stringify(cart));
+      document.getElementById('cart-count').innerText = cart.length;
+      alert(name + " added! 🧁");
+    }
+  </script>
+    <script>
+  function updateNavBadge() {
+    const badge = document.getElementById('navBadge');
+    if (badge) {
+      const cart = JSON.parse(localStorage.getItem('brewbite-cart')) || [];
+      // Calculate total quantity of all items
+      const totalItems = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+      badge.textContent = totalItems;
+    }
+  }
+
+  // Run immediately when the page loads
+  document.addEventListener('DOMContentLoaded', updateNavBadge);
+</script>
+</body>
+</html>
+

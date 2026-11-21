@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Brew & Bite | About Us</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { background-color: #fff8f8; color: #4B2E0F; font-family: 'Poppins', sans-serif; margin: 0; }
+
+    /* --- NAVBAR STYLE (Matches Menu/Home) --- */
+    .navbar {
+      background: #ec6aab;
+      padding: 10px 40px;
+      position: fixed;
+      top: 0; width: 100%; z-index: 2000;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .navbar-brand { color: #fff !important; font-weight: 700; font-size: 1.6rem; display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .navbar-brand img { height: 45px; width: 45px; border-radius: 50%; border: 2px solid white; object-fit: cover; }
+    .nav-links { display: flex; list-style: none; margin: 0; gap: 2rem; align-items: center; }
+    .nav-links a { color: #fff !important; text-decoration: none; font-weight: 500; }
+
+    /* Cart Button with Notification Badge */
+    .cart-link {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 6px 15px;
+      border-radius: 20px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: white;
+      color: #ec6aab;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    /* --- HEADER (Deep Curve & Centered Logo) --- */
+    .about-header {
+      background: #ec6aab;
+      padding: 160px 20px 100px;
+      text-align: center;
+      color: white;
+      border-radius: 0 0 50% 50% / 0 0 15% 15%;
+      position: relative;
+    }
+    .header-logo {
+      width: 140px; height: 140px; border-radius: 50%; border: 5px solid white;
+      margin-bottom: 20px; background: white; box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .about-header h1 { font-size: 4rem; font-weight: 800; margin: 0; }
+
+    /* --- HIGHLIGHT BOXES (Solid Pink & Better Emojis) --- */
+    .values-container { margin-top: -80px; padding: 0 20px; position: relative; z-index: 10; }
+    .glass-card {
+      max-width: 800px; margin: 0 auto; background: white; padding: 40px;
+      border-radius: 40px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); text-align: center;
+    }
+    .offer-box-wrapper { display: flex; justify-content: center; gap: 20px; margin: 30px 0; flex-wrap: wrap; }
+    .offer-box {
+      width: 100px; height: 100px; background-color: #ec6aab !important; 
+      opacity: 1 !important; border-radius: 25px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border: 4px solid white; transition: 0.3s;
+      font-size: 2.5rem; box-shadow: 0 10px 20px rgba(236, 106, 171, 0.4);
+    }
+    .offer-box:hover { transform: scale(1.1); background-color: #ff85c0 !important; }
+
+    /* --- CONTENT & GREETING --- */
+    .about-content { max-width: 850px; margin: 60px auto; padding: 0 20px; text-align: center; }
+    .greeting-title { color: #ec6aab; font-weight: 800; font-size: 3rem; margin-bottom: 20px; }
+    .about-text { font-size: 1.2rem; color: #555; line-height: 1.8; margin-bottom: 40px; }
+
+    /* --- LOWER LOGOS --- */
+    .footer-logos { display: flex; justify-content: center; align-items: center; gap: 40px; margin: 60px 0; }
+    .footer-logos img { 
+      width: 150px; height: 150px; border-radius: 50%; background: white; 
+      border: 5px solid white; box-shadow: 0 8px 20px rgba(0,0,0,0.1); object-fit: contain;
+    }
+
+    .value-item { display: none; background: white; padding: 30px; border-radius: 25px; border-left: 10px solid #ec6aab; margin-top: 20px; text-align: left; }
+    .value-item.show { display: block; }
+    footer { background: #ec6aab; color: white; text-align: center; padding: 40px; margin-top: 50px; }
+    /* Makes the background transparent so the word 'Cart' is shown */
+.nav-cart-btn {
+  background: transparent !important; 
+  color: white !important; 
+  border: 2px solid white; 
+  padding: 6px 15px !important;
+  border-radius: 50px;
+  font-weight: 700 !important;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.badge-pill-custom {
+  background: white; 
+  color: #ec6aab; 
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  margin-left: 8px;
+}
+  </style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <a class="navbar-brand" href="index.html">
+    <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" alt="Logo">
+    Brew & Bite
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+  <li>
+  <a href="My Cart.html" class="nav-cart-btn">
+    Cart 🛒 <span class="badge-pill-custom" id="navBadge">0</span>
+  </a>
+</li>
+  </ul>
+</nav>
+
+<header class="about-header">
+  <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" class="header-logo">
+  <h1>Our Story</h1>
+</header>
+
+<div class="values-container">
+  <div class="glass-card">
+    <h3 style="color: #ec6aab; font-weight: 800;">Our Highlights 🎯</h3>
+    <div class="offer-box-wrapper">
+      <div class="offer-box" onclick="showVal('quality')">💎</div>
+      <div class="offer-box" onclick="showVal('community')">🏠</div>
+      <div class="offer-box" onclick="showVal('innovation')">✨</div>
+      <div class="offer-box" onclick="showVal('charity')">💓</div>
+    </div>
+    <button onclick="showAll()" style="background: #ec6aab; color: white; border: none; padding: 10px 30px; border-radius: 20px; font-weight: bold; cursor: pointer;">Show All Values ✨</button>
+  </div>
+</div>
+
+<main class="about-content">
+  <h2 class="greeting-title">Welcome to Brew & Bite</h2>
+  <p class="about-text">At Brew & Bite, we are passionate about bringing you the finest coffee and delicious bites in a warm, inviting atmosphere. We carefully select premium ingredients to craft beverages and snacks inspired by both local flavors and international favorites.</p>
+
+  <div id="v-quality" class="value-item"><h3>💎 Quality</h3><p>We only use fresh and high-quality ingredients. Every bite and sip is a promise of excellence.</p></div>
+  <div id="v-community" class="value-item"><h3>🏠 Community</h3><p>We aim to be Riyadh's favorite gathering space, where friends and families connect.</p></div>
+  <div id="v-innovation" class="value-item"><h3>✨ Innovation</h3><p>We love experimenting with new recipes and seasonal treats to keep your experience exciting.</p></div>
+  <div id="v-charity" class="value-item"><h3>💓 Giving Back</h3><p>We donate 5% of our proceeds directly toward breast cancer awareness initiatives.</p></div>
+
+  <div class="footer-logos">
+    <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" alt="Brew & Bite Logo">
+    <img src="images.png" alt="Breast Cancer Awareness Logo">
+  </div>
+</main>
+
+<footer><p>© 2026 Brew & Bite - Riyadh</p></footer>
+
+<script>
+  function showVal(id) {
+    document.querySelectorAll('.value-item').forEach(v => v.classList.remove('show'));
+    document.getElementById('v-' + id).classList.add('show');
+  }
+  function showAll() {
+    document.querySelectorAll('.value-item').forEach(v => v.classList.add('show'));
+  }
+</script>
+<script>
+  function updateNavBadge() {
+    const badge = document.getElementById('navBadge');
+    if (badge) {
+      const cart = JSON.parse(localStorage.getItem('brewbite-cart')) || [];
+      // Calculate total quantity of all items
+      const totalItems = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 1), 0);
+      badge.textContent = totalItems;
+    }
+  }
+
+  // Run immediately when the page loads
+  document.addEventListener('DOMContentLoaded', updateNavBadge);
+</script>
+</body>
+</html>

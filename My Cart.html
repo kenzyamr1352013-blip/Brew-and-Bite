@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Brew & Bite | My Cart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background-color: #fff8f8; font-family: 'Poppins', sans-serif; color: #4B2E0F; }
+
+    /* --- NAVBAR: TRANSPARENT CART BUTTON FIX --- */
+    .navbar {
+      background: #ec6aab;
+      padding: 15px 40px;
+      position: fixed;
+      top: 0; width: 100%; z-index: 2000;
+      display: flex; justify-content: space-between; align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .navbar-brand { color: #fff !important; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .navbar-brand img { height: 40px; border-radius: 50%; border: 2px solid white; }
+    
+    .desktop-menu { display: flex; list-style: none; margin: 0; gap: 1.5rem; align-items: center; }
+    .desktop-menu a { color: #fff !important; text-decoration: none; font-weight: 500; transition: 0.3s; }
+    .desktop-menu a:hover { color: #ffd1e6 !important; }
+
+    /* This makes the white box CLEAR so the word "Cart" shows */
+    .nav-cart-btn {
+      background: transparent !important; 
+      color: white !important; 
+      border: 2px solid white; 
+      padding: 6px 18px !important;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    /* --- SIGNATURE CURVED HEADER --- */
+    .cart-header {
+      background: #ec6aab;
+      padding: 160px 20px 100px;
+      text-align: center;
+      color: white;
+      border-radius: 0 0 50% 50% / 0 0 15% 15%;
+    }
+    .cart-header h1 { font-size: 3.5rem; font-weight: 800; margin: 0; }
+
+    /* --- CART CONTENT --- */
+    .cart-container { max-width: 800px; margin: -60px auto 100px; padding: 0 20px; position: relative; z-index: 10; }
+    
+    .cart-card {
+      background: white; border-radius: 30px; padding: 40px;
+      box-shadow: 0 15px 40px rgba(236, 106, 171, 0.1); margin-bottom: 30px;
+    }
+
+    .item-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 0; border-bottom: 1px dashed #ffd1e6;
+    }
+    .item-name { font-weight: 700; color: #ec6aab; font-size: 1.3rem; margin-bottom: 2px; }
+    .item-meta { color: #888; font-size: 0.9rem; }
+    .item-price { font-weight: 800; color: #333; font-size: 1.2rem; }
+
+    .remove-btn {
+      background: #fff0f6; color: #ec6aab; border: none; padding: 8px 16px;
+      border-radius: 12px; font-weight: 600; cursor: pointer; transition: 0.3s;
+    }
+    .remove-btn:hover { background: #ec6aab; color: white; }
+
+    /* --- TOTAL & ACTION BUTTONS --- */
+    .total-section { text-align: center; margin-top: 20px; }
+    .total-label { color: #777; font-weight: 600; margin-bottom: 5px; }
+    .total-amount { font-size: 3rem; font-weight: 800; color: #ec6aab; margin-bottom: 25px; }
+
+    .btn-pay {
+      background: linear-gradient(135deg, #ec6aab 0%, #ff66b2 100%);
+      color: white; border: none; padding: 18px; border-radius: 50px;
+      width: 100%; font-weight: 700; font-size: 1.2rem; cursor: pointer;
+      box-shadow: 0 10px 20px rgba(236, 106, 171, 0.3); transition: 0.3s;
+    }
+    .btn-pay:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(236, 106, 171, 0.4); }
+
+    /* THE CLEAR "CLEAR CART" BUTTON */
+    .btn-clear-outline {
+      background: transparent;
+      color: #ec6aab;
+      border: 2px solid #ec6aab;
+      padding: 10px 30px;
+      border-radius: 50px;
+      font-weight: 700;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-clear-outline:hover { background: #fff0f6; }
+
+    .empty-msg { text-align: center; padding: 40px; color: #888; font-size: 1.2rem; }
+
+    footer { background: #ec6aab; color: white; text-align: center; padding: 40px; margin-top: 80px; }
+    .footer-logos img { height: 80px; margin: 0 15px; border-radius: 50%; background: white; padding: 5px; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a class="navbar-brand" href="index.html">
+      <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" alt="Logo">
+      Brew & Bite
+    </a>
+    <ul class="desktop-menu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="menu.html">Menu</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="My Cart.html" class="nav-cart-btn">Cart 🛒</a></li>
+    </ul>
+  </nav>
+
+  <header class="cart-header">
+    <h1>My Cart</h1>
+  </header>
+
+  <div class="cart-container">
+    <div id="cartItems" class="cart-card">
+      </div>
+
+    <div class="cart-card text-center" id="summaryCard">
+      <p class="total-label">Total to pay</p>
+      <div class="total-amount" id="finalTotal">0 SR</div>
+      <button class="btn-pay">Confirm & Pay Now</button>
+      <button class="btn-clear-outline" onclick="emptyCart()">Clear Cart</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logos">
+      <img src="WhatsApp Image 1447-04-18 at 20.58.46.jpeg" alt="Brew & Bite">
+      <img src="images.png" alt="Awareness">
+    </div>
+    <p style="margin-top:20px;">© 2026 Brew & Bite - Riyadh, Saudi Arabia</p>
+  </footer>
+
+  <script>
+    function updateCartUI() {
+      const list = document.getElementById('cartItems');
+      const totalDisplay = document.getElementById('finalTotal');
+      const summary = document.getElementById('summaryCard');
+      
+      let cart = JSON.parse(localStorage.getItem('brewbite-cart')) || [];
+      let total = 0;
+
+      if (cart.length === 0) {
+        list.innerHTML = `<div class="empty-msg">Your cart is empty! 🍩<br><a href="menu.html" style="color:#ec6aab; font-size:1rem;">Back to Menu</a></div>`;
+        summary.style.display = 'none';
+        return;
+      }
+
+      summary.style.display = 'block';
+      let html = '';
+
+      cart.forEach((item, index) => {
+        // FIX FOR NaN: Force calculation as numbers
+        const price = parseFloat(item.price) || 0;
+        const qty = parseInt(item.quantity) || 1;
+        const subtotal = price * qty;
+        total += subtotal;
+
+        html += `
+          <div class="item-row">
+            <div>
+              <div class="item-name">${item.name}</div>
+              <div class="item-meta">Quantity: ${qty} • ${price} SR each</div>
+            </div>
+            <div class="item-price">${subtotal} SR</div>
+            <button class="remove-btn" onclick="deleteItem(${index})">Remove</button>
+          </div>
+        `;
+      });
+
+      list.innerHTML = html;
+      totalDisplay.textContent = total + " SR";
+      
+      gsap.from(".item-row", { opacity: 0, x: -20, duration: 0.4, stagger: 0.1 });
+    }
+
+    function deleteItem(i) {
+      let cart = JSON.parse(localStorage.getItem('brewbite-cart'));
+      cart.splice(i, 1);
+      localStorage.setItem('brewbite-cart', JSON.stringify(cart));
+      updateCartUI();
+    }
+
+    function emptyCart() {
+      if(confirm("Empty your entire cart?")) {
+        localStorage.removeItem('brewbite-cart');
+        updateCartUI();
+      }
+    }
+
+    // Run on load
+    updateCartUI();
+  </script>
+</body>
+</html>
